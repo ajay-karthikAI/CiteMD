@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "CiteMD PubMed Copilot",
+  "version": "0.1.0",
+  "description": "Injects a CiteMD biomedical research copilot into PubMed pages.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "http://localhost:8001/*",
+    "https://pubmed.ncbi.nlm.nih.gov/*",
+    "https://scholar.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://pubmed.ncbi.nlm.nih.gov/*",
+        "https://scholar.google.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "CiteMD",
+    "default_popup": "popup.html"
+  }
+}

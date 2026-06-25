@@ -1,0 +1,18 @@
+pubmed:
+  email: citemd@example.com
+  api_key:
+  retmax: 100
+
+models:
+  embedding_model: pritamdeka/S-PubMedBert-MS-MARCO
+  ranker_base_model: microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract
+  ranker_model_path: models/pubmedbert-ranker-v2
+  openai_model: gpt-4o-mini
+
+rag:
+  vector_store_dir: data/vector_store
+  top_k_retrieval: 20
+  top_k_context: 8
+
+logging:
+  level: INFO

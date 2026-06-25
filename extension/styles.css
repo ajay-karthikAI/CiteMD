@@ -1,0 +1,366 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap");
+
+:root {
+  --citemd-bg: #1a1a1f;
+  --citemd-surface: #22222a;
+  --citemd-surface-raised: #2a2a35;
+  --citemd-border: rgba(255, 255, 255, 0.07);
+  --citemd-accent: #00e5a0;
+  --citemd-accent-blue: #00bfff;
+  --citemd-accent-tint: rgba(0, 229, 160, 0.12);
+  --citemd-accent-border: rgba(0, 229, 160, 0.4);
+  --citemd-text: #f0f0f5;
+  --citemd-muted: #8888a0;
+  --citemd-shadow: rgba(0, 0, 0, 0.35);
+  --citemd-ease: 0.15s ease;
+}
+
+#citemd-pubmed-button {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147483646;
+  border: 1px solid rgba(0, 229, 160, 0.38);
+  border-radius: 10px;
+  background: var(--citemd-surface);
+  color: var(--citemd-accent);
+  font: 700 14px/1 "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  padding: 12px 15px;
+  box-shadow: 0 0 18px rgba(0, 229, 160, 0.12), 0 14px 34px var(--citemd-shadow);
+  cursor: pointer;
+  transition: background var(--citemd-ease), border-color var(--citemd-ease), box-shadow var(--citemd-ease), transform var(--citemd-ease);
+}
+
+#citemd-pubmed-button:hover {
+  background: #262632;
+  border-color: rgba(0, 229, 160, 0.58);
+  box-shadow: 0 0 22px rgba(0, 229, 160, 0.16), 0 16px 38px var(--citemd-shadow);
+  transform: translateY(-1px);
+}
+
+#citemd-pubmed-panel {
+  position: fixed;
+  top: 72px;
+  right: 18px;
+  z-index: 2147483647;
+  width: min(440px, calc(100vw - 36px));
+  max-height: calc(100vh - 104px);
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+  overflow: auto;
+  border: 1px solid var(--citemd-border);
+  border-radius: 14px;
+  background: var(--citemd-bg);
+  color: var(--citemd-text);
+  padding: 16px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48), 0 0 34px rgba(0, 229, 160, 0.07);
+  font: 14px/1.52 "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 229, 160, 0.3) transparent;
+}
+
+#citemd-pubmed-panel.is-open {
+  display: flex;
+}
+
+#citemd-pubmed-panel * {
+  transition: color var(--citemd-ease), background var(--citemd-ease), border-color var(--citemd-ease), box-shadow var(--citemd-ease), transform var(--citemd-ease), filter var(--citemd-ease);
+}
+
+#citemd-pubmed-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+#citemd-pubmed-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#citemd-pubmed-panel::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(0, 229, 160, 0.3);
+  background-clip: padding-box;
+}
+
+.citemd-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: 54px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.citemd-header::before {
+  position: absolute;
+  inset: -20px -16px auto;
+  height: 96px;
+  content: "";
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 229, 160, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.citemd-header > div {
+  position: relative;
+  z-index: 1;
+}
+
+.citemd-title {
+  color: var(--citemd-text);
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+}
+
+.citemd-subtitle {
+  color: rgba(0, 229, 160, 0.72);
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.citemd-icon-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--citemd-border);
+  border-radius: 9px;
+  background: var(--citemd-surface);
+  color: var(--citemd-muted);
+  cursor: pointer;
+}
+
+.citemd-icon-button:hover {
+  border-color: rgba(0, 229, 160, 0.32);
+  color: var(--citemd-accent);
+  background: #272730;
+}
+
+.citemd-query {
+  width: 100%;
+  min-height: 96px;
+  box-sizing: border-box;
+  resize: none;
+  border: 1px solid rgba(0, 229, 160, 0.3);
+  border-radius: 10px;
+  outline: none;
+  background: var(--citemd-bg);
+  color: var(--citemd-text);
+  padding: 12px;
+  font: 14px/1.48 "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+.citemd-query:focus {
+  border-color: rgba(0, 229, 160, 0.7);
+  box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.08);
+}
+
+.citemd-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.citemd-primary,
+.citemd-secondary {
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0 14px;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.citemd-primary {
+  border: 1px solid var(--citemd-accent);
+  background: var(--citemd-accent);
+  color: #0a0a0f;
+}
+
+.citemd-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.citemd-secondary {
+  border: 1px solid var(--citemd-accent-border);
+  background: transparent;
+  color: var(--citemd-accent);
+}
+
+.citemd-secondary:hover {
+  background: var(--citemd-accent-tint);
+  transform: translateY(-1px);
+}
+
+.citemd-status {
+  min-height: 20px;
+  color: var(--citemd-muted);
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.citemd-confidence,
+.citemd-conflict {
+  position: relative;
+  border: 1px solid rgba(0, 229, 160, 0.25);
+  border-radius: 999px;
+  margin-bottom: 12px;
+  background: rgba(0, 229, 160, 0.1);
+  color: var(--citemd-accent);
+  padding: 10px 16px 16px;
+  text-align: center;
+  font: 500 12px/1.2 "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  box-shadow: 0 0 22px rgba(0, 229, 160, 0.08);
+}
+
+.citemd-confidence::before {
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  margin-right: 7px;
+  border-radius: 999px;
+  background: var(--citemd-accent);
+  box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.12);
+  content: "";
+  vertical-align: 3px;
+  animation: citemd-pulse 1.6s ease-in-out infinite;
+}
+
+.citemd-confidence::after {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  width: min(180px, 62%);
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #00e5a0, #00bfff);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.citemd-conflict {
+  border-color: rgba(255, 184, 96, 0.26);
+  background: rgba(255, 184, 96, 0.09);
+  color: #ffc77d;
+}
+
+@keyframes citemd-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.8);
+  }
+}
+
+.citemd-answer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+  color: var(--citemd-text);
+  white-space: normal;
+}
+
+.citemd-answer p {
+  margin: 0 0 12px;
+}
+
+.citemd-answer ul {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.citemd-answer li {
+  margin: 0;
+  border-left: 2px solid rgba(0, 229, 160, 0.3);
+  padding-left: 10px;
+}
+
+.citemd-answer strong {
+  display: inline-block;
+  border-radius: 4px;
+  background: rgba(0, 229, 160, 0.1);
+  color: var(--citemd-accent);
+  padding: 1px 6px;
+  font: 500 12px/1.45 "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.citemd-answer a {
+  display: inline-block;
+  border-radius: 3px;
+  background: var(--citemd-surface-raised);
+  color: rgba(0, 229, 160, 0.9);
+  padding: 1px 5px;
+  font: 500 12px/1.35 "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-decoration: none;
+}
+
+.citemd-answer a:hover,
+.citemd-citations a:hover {
+  color: var(--citemd-accent);
+}
+
+.citemd-result h3 {
+  margin: 16px 0 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 14px;
+  color: rgba(0, 229, 160, 0.72);
+  font: 500 11px/1.3 "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.citemd-citations {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.citemd-citations li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: var(--citemd-surface);
+  padding: 10px 12px;
+}
+
+.citemd-citations a {
+  grid-column: 1;
+  color: var(--citemd-accent);
+  font: 500 12px/1.3 "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-decoration: none;
+}
+
+.citemd-citations span {
+  grid-column: 1;
+  display: block;
+  color: var(--citemd-text);
+  font-weight: 400;
+}
+
+.citemd-citations strong {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  border-radius: 999px;
+  background: rgba(0, 229, 160, 0.1);
+  color: var(--citemd-accent);
+  padding: 3px 7px;
+  font: 500 11px/1 "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

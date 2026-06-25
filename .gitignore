@@ -1,0 +1,10 @@
+.env
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.streamlit/
+data/vector_store/
+models/pubmedbert-ranker/
+models/pubmedbert-ranker-v2/
